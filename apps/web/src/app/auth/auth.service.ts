@@ -76,7 +76,7 @@ export class AuthService {
     try {
       await signOut(this.auth);
 
-      this.router.navigate(["/login"]);
+      void this.router.navigate(["/login"]);
     } catch (error: unknown) {
       console.error(error);
 

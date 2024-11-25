@@ -1,20 +1,18 @@
-<div class="min-h-screen bg-gray-50">
-  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-      <div class="px-4 py-5 sm:px-6">
-        <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-          Protected Page
-        </h2>
-        <p *ngIf="userEmail" class="mt-1 max-w-2xl text-sm text-gray-500">
-          Welcome, {{ userEmail }}!
-        </p>
-      </div>
-      <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+<div class="flex min-h-screen flex-col bg-gray-50 px-6 py-12 lg:px-8">
+  <div class="rounded-lg bg-white shadow sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="px-6 py-8">
+      <h2 class="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+        Protected Page
+      </h2>
+      <p *ngIf="userEmail" class="mt-4 text-center text-gray-600">
+        Welcome, {{ userEmail }}!
+      </p>
+      <div class="mt-6">
         <button
           (click)="logout()"
-          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Logout
+          Sign out
         </button>
       </div>
     </div>

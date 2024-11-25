@@ -14,6 +14,7 @@ import { AuthService } from "../auth/auth.service";
 export class RegisterComponent {
   email = "";
   password = "";
+  showPassword = false;
 
   constructor(
     private auth: AuthService,
