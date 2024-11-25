@@ -1,0 +1,22 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+      <div class="px-4 py-5 sm:px-6">
+        <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+          Protected Page
+        </h2>
+        <p *ngIf="userEmail" class="mt-1 max-w-2xl text-sm text-gray-500">
+          Welcome, {{ userEmail }}!
+        </p>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+        <button
+          (click)="logout()"
+          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
