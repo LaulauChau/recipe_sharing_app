@@ -1,27 +1,29 @@
-<div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
-  <div class="p-4">
-    <h3 class="text-lg font-semibold text-gray-900">{{ recipe.name }}</h3>
-    <div class="mt-2 text-sm text-gray-600 space-y-1">
-      <p class="flex items-center">
-        <span
-          class="inline-flex px-2 py-1 rounded text-xs font-medium mr-2"
-          [ngClass]="{
-            'bg-green-100 text-green-800': recipe.difficulty === 'easy',
-            'bg-yellow-100 text-yellow-800': recipe.difficulty === 'medium',
-            'bg-red-100 text-red-800': recipe.difficulty === 'hard'
-          }"
-        >
-          {{ recipe.difficulty | titlecase }}
-        </span>
-        <span>{{ recipe.time.preparation + recipe.time.cooking }} min</span>
-      </p>
-      <p>By {{ recipe.author.name }}</p>
+<div
+  class="bg-white border-2 border-black p-6 transform transition-transform hover:rotate-[0.5deg] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[8px] hover:translate-y-[8px] relative"
+>
+  <h3 class="text-xl font-bold text-black mb-4">{{ recipe.name }}</h3>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <span
+        class="px-3 py-1 font-bold text-sm border-2"
+        [ngClass]="{
+          'bg-green-300 border-black': recipe.difficulty === 'easy',
+          'bg-yellow-300 border-black': recipe.difficulty === 'medium',
+          'bg-red-300 border-black': recipe.difficulty === 'hard',
+        }"
+      >
+        {{ recipe.difficulty | titlecase }}
+      </span>
+      <span class="font-bold"
+        >{{ recipe.time.preparation + recipe.time.cooking }} min</span
+      >
     </div>
-    <a
-      [routerLink]="['/recipe', recipe.id]"
-      class="mt-4 inline-flex items-center text-indigo-600 hover:text-indigo-800"
-    >
-      View details →
-    </a>
+    <p class="font-medium">By {{ recipe.author.name }}</p>
   </div>
+  <a
+    [routerLink]="['/recipe', recipe.id]"
+    class="mt-6 inline-block font-bold text-black underline decoration-2 underline-offset-4 hover:no-underline"
+  >
+    View details →
+  </a>
 </div>
