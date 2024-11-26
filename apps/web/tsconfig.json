@@ -19,6 +19,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "outDir": "./dist/out-tsc",
     "paths": {
+      "@/config/*": ["./src/config/*"],
       "@/*": ["./src/app/*"]
     },
     "skipLibCheck": true,

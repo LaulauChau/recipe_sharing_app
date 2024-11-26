@@ -8,6 +8,7 @@
     "lint": "biome check --no-errors-on-unmatched --files-ignore-unknown=true --write .",
     "preinstall": "npx only-allow pnpm",
     "start": "ng serve",
+    "typecheck": "tsc --noEmit",
     "watch": "ng build --watch --configuration development"
   },
   "dependencies": {
@@ -22,6 +23,7 @@
     "@angular/router": "^19.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "zod": "^3.23.8",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -29,6 +31,8 @@
     "@angular/cli": "^19.0.2",
     "@angular/compiler-cli": "^19.0.0",
     "@biomejs/biome": "^1.9.4",
+    "@tailwindcss/forms": "^0.5.9",
+    "@types/node": "^22.10.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",

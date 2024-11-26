@@ -1,0 +1,28 @@
+<app-auth-layout title="Create your account">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    <ng-container *ngFor="let field of registerFields">
+      <app-form-input
+        [config]="field"
+        [control]="$any(registerForm.get(field.id))"
+        [form]="registerForm"
+      />
+    </ng-container>
+
+    <div *ngIf="errorMessage" class="text-sm text-red-600">
+      {{ errorMessage }}
+    </div>
+
+    <app-form-button [disabled]="registerForm.invalid">
+      Register
+    </app-form-button>
+  </form>
+
+  <p class="mt-10 text-center text-sm/6 text-gray-500">
+    Already have an account?
+    <a
+      routerLink="/auth/login"
+      class="font-semibold text-indigo-600 hover:text-indigo-500"
+      >Sign in</a
+    >
+  </p>
+</app-auth-layout>

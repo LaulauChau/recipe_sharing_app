@@ -4,23 +4,25 @@ import { getAuth, provideAuth } from "@angular/fire/auth";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { provideRouter } from "@angular/router";
 
+import { environment } from "@/config/environment";
 import { routes } from "./app.routes";
+import { AuthService } from "./application/services/auth-service.interface";
+import { LoginUseCase } from "./application/use-cases/auth/login.use-case";
+import { RegisterUseCase } from "./application/use-cases/auth/register.use-case";
+import { FirebaseAuthServiceImpl } from "./infrastructure/services/firebase-auth.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideFirebaseApp(() =>
-      initializeApp({
-        projectId: "recipe-sharing-app-6ec13",
-        appId: "1:688436745851:web:2377ed1e0d4251eb40f4de",
-        storageBucket: "recipe-sharing-app-6ec13.firebasestorage.app",
-        apiKey: "AIzaSyAohTofetaMb4fk0YIVVTXP7AxQT0LKDao",
-        authDomain: "recipe-sharing-app-6ec13.firebaseapp.com",
-        messagingSenderId: "688436745851",
-      }),
-    ),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    {
+      provide: AuthService,
+      useClass: FirebaseAuthServiceImpl,
+    },
+    LoginUseCase,
+    RegisterUseCase,
   ],
 };
