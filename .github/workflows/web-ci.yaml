@@ -1,0 +1,116 @@
+name: Web CI
+
+on:
+  push:
+    branch:
+      - dev
+      - master
+    paths:
+      - "apps/web/**"
+      - ".github/workflows/web-ci.yaml"
+  pull_request:
+    branch:
+      - dev
+      - master
+    paths:
+      - "apps/web/**"
+      - ".github/workflows/web-ci.yaml"
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+        pnpm-version: [9]
+
+    defaults:
+      run:
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+  lint:
+    needs: [typecheck]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+        pnpm-version: [9]
+
+    defaults:
+      run:
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+  build:
+    needs: [typecheck, lint]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+        pnpm-version: [9]
+
+    defaults:
+      run:
+        working-directory: apps/web
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm-version }}
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
