@@ -1,0 +1,9 @@
+name: "recipes_sharing_app"
+
+services:
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: docker/Dockerfile
+    ports:
+      - "80:80"
