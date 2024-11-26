@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 
 **/config/*.ts
+!**/config/*.sample.ts
