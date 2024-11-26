@@ -1,0 +1,15 @@
+<div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
+  <div class="p-4">
+    <h3 class="text-lg font-semibold text-gray-900">{{ recipe.name }}</h3>
+    <div class="mt-2 text-sm text-gray-600">
+      <p>Total time: {{ recipe.time.preparation + recipe.time.cooking }} min</p>
+      <p>By {{ recipe.author.name }}</p>
+    </div>
+    <a
+      [routerLink]="['/recipe', recipe.id]"
+      class="mt-4 inline-flex items-center text-indigo-600 hover:text-indigo-800"
+    >
+      View details →
+    </a>
+  </div>
+</div>

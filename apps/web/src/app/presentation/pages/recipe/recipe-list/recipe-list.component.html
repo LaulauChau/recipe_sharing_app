@@ -1,0 +1,29 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Recipes</h1>
+    <div class="flex items-center space-x-4">
+      <a
+        routerLink="/recipe/new"
+        class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+      >
+        Add Recipe
+      </a>
+      <button
+        (click)="onLogout()"
+        class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <app-search-bar class="mb-8" (search)="onSearch($event)" />
+
+  <div *ngIf="loading" class="text-center">Loading...</div>
+
+  <div *ngIf="error" class="text-red-600 mb-4">{{ error }}</div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <app-recipe-card *ngFor="let recipe of filteredRecipes" [recipe]="recipe" />
+  </div>
+</div>

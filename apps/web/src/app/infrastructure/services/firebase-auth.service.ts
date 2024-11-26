@@ -33,6 +33,18 @@ export class FirebaseAuthServiceImpl implements AuthService {
     );
   }
 
+  getCurrentUser(): User | null {
+    if (!this.auth.currentUser) {
+      return null;
+    }
+
+    return {
+      id: this.auth.currentUser?.uid ?? "",
+      name: this.auth.currentUser?.displayName ?? "",
+      email: this.auth.currentUser?.email ?? "",
+    };
+  }
+
   async login(email: string, password: string): Promise<User> {
     try {
       const result = await signInWithEmailAndPassword(

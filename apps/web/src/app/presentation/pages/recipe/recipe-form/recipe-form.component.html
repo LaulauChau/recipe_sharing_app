@@ -1,0 +1,113 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-2xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">
+        {{ isEdit ? "Edit Recipe" : "Create Recipe" }}
+      </h1>
+      <button (click)="goBack()" class="text-gray-600 hover:text-gray-800">
+        Cancel
+      </button>
+    </div>
+
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+        />
+      </div>
+
+      <div formArrayName="ingredients">
+        <label class="block text-sm font-medium text-gray-700"
+          >Ingredients</label
+        >
+        <div *ngFor="let ingredient of ingredients.controls; let i = index">
+          <div class="flex mt-1">
+            <input
+              [formControlName]="i"
+              class="block w-full rounded-md border-gray-300 shadow-sm"
+            />
+            <button
+              type="button"
+              (click)="removeIngredient(i)"
+              class="ml-2 text-red-600"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        <button
+          type="button"
+          (click)="addIngredient()"
+          class="mt-2 text-sm text-indigo-600"
+        >
+          Add Ingredient
+        </button>
+      </div>
+
+      <div formArrayName="steps">
+        <label class="block text-sm font-medium text-gray-700">Steps</label>
+        <div *ngFor="let step of steps.controls; let i = index">
+          <div class="flex mt-1">
+            <textarea
+              [formControlName]="i"
+              class="block w-full rounded-md border-gray-300 shadow-sm"
+            ></textarea>
+            <button
+              type="button"
+              (click)="removeStep(i)"
+              class="ml-2 text-red-600"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        <button
+          type="button"
+          (click)="addStep()"
+          class="mt-2 text-sm text-indigo-600"
+        >
+          Add Step
+        </button>
+      </div>
+
+      <div formGroupName="time">
+        <label class="block text-sm font-medium text-gray-700"
+          >Time (minutes)</label
+        >
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <input
+              type="number"
+              formControlName="preparation"
+              placeholder="Preparation"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              formControlName="cooking"
+              placeholder="Cooking"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="text-red-600">{{ error }}</div>
+
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          [disabled]="recipeForm.invalid || loading"
+          class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+        >
+          {{ isEdit ? "Update" : "Create" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
