@@ -1,8 +1,20 @@
 <div class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow">
   <div class="p-4">
     <h3 class="text-lg font-semibold text-gray-900">{{ recipe.name }}</h3>
-    <div class="mt-2 text-sm text-gray-600">
-      <p>Total time: {{ recipe.time.preparation + recipe.time.cooking }} min</p>
+    <div class="mt-2 text-sm text-gray-600 space-y-1">
+      <p class="flex items-center">
+        <span
+          class="inline-flex px-2 py-1 rounded text-xs font-medium mr-2"
+          [ngClass]="{
+            'bg-green-100 text-green-800': recipe.difficulty === 'easy',
+            'bg-yellow-100 text-yellow-800': recipe.difficulty === 'medium',
+            'bg-red-100 text-red-800': recipe.difficulty === 'hard'
+          }"
+        >
+          {{ recipe.difficulty | titlecase }}
+        </span>
+        <span>{{ recipe.time.preparation + recipe.time.cooking }} min</span>
+      </p>
       <p>By {{ recipe.author.name }}</p>
     </div>
     <a

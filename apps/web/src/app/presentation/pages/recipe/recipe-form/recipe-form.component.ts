@@ -9,9 +9,15 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import {
+  createRecipeDto,
+  findRecipeDto,
+  updateRecipeDto,
+} from "@/application/dtos/recipe.dto";
 import { CreateRecipeUseCase } from "@/application/use-cases/recipe/create-recipe.use-case";
 import { FindRecipeUseCase } from "@/application/use-cases/recipe/find-recipe.use-case";
 import { UpdateRecipeUseCase } from "@/application/use-cases/recipe/update-recipe.use-case";
+import type { RecipeDifficulty } from "@/domain/entities/recipe.entity";
 
 @Component({
   selector: "app-recipe-form",
@@ -25,6 +31,8 @@ export class RecipeFormComponent implements OnInit {
   error = "";
   isEdit = false;
   recipeId: string | null = null;
+
+  readonly difficulties: RecipeDifficulty[] = ["easy", "medium", "hard"];
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +58,7 @@ export class RecipeFormComponent implements OnInit {
       name: ["", [Validators.required, Validators.minLength(3)]],
       ingredients: this.fb.array([], Validators.required),
       steps: this.fb.array([], Validators.required),
+      difficulty: ["easy", [Validators.required]],
       time: this.fb.group({
         preparation: [0, [Validators.required, Validators.min(0)]],
         cooking: [0, [Validators.required, Validators.min(0)]],
@@ -83,9 +92,11 @@ export class RecipeFormComponent implements OnInit {
 
   private async loadRecipe() {
     try {
-      const recipe = await this.findRecipeUseCase.execute({
-        id: this.recipeId ?? "",
-      });
+      const recipe = await this.findRecipeUseCase.execute(
+        findRecipeDto.parse({
+          id: this.recipeId ?? "",
+        }),
+      );
       if (!recipe) {
         throw new Error("Recipe not found");
       }
@@ -118,10 +129,12 @@ export class RecipeFormComponent implements OnInit {
       if (this.isEdit) {
         await this.updateRecipeUseCase.execute({
           id: this.recipeId ?? "",
-          data: this.recipeForm.value,
+          data: updateRecipeDto.parse(this.recipeForm.value),
         });
       } else {
-        await this.createRecipeUseCase.execute(this.recipeForm.value);
+        await this.createRecipeUseCase.execute(
+          createRecipeDto.parse(this.recipeForm.value),
+        );
       }
       await this.router.navigate(["/recipe"]);
     } catch (error) {

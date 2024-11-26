@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 
+import { findRecipeDto } from "@/application/dtos/recipe.dto";
 import { AuthService } from "@/application/services/auth-service.interface";
 import { DeleteRecipeUseCase } from "@/application/use-cases/recipe/delete-recipe.use-case";
 import { FindRecipeUseCase } from "@/application/use-cases/recipe/find-recipe.use-case";
@@ -34,7 +35,9 @@ export class RecipeDetailComponent implements OnInit {
     }
 
     try {
-      this.recipe = await this.findRecipeUseCase.execute({ id });
+      this.recipe = await this.findRecipeUseCase.execute(
+        findRecipeDto.parse({ id }),
+      );
       if (!this.recipe) {
         throw new Error("Recipe not found");
       }
@@ -56,7 +59,9 @@ export class RecipeDetailComponent implements OnInit {
     }
 
     try {
-      await this.deleteRecipeUseCase.execute({ id: this.recipe.id });
+      await this.deleteRecipeUseCase.execute(
+        findRecipeDto.parse({ id: this.recipe.id }),
+      );
       await this.router.navigate(["/recipe"]);
     } catch (error) {
       this.error =

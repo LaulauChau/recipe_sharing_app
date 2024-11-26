@@ -31,6 +31,20 @@
       </div>
 
       <div class="mb-6">
+        <h2 class="text-xl font-semibold mb-2">Difficulty</h2>
+        <span
+          class="inline-flex px-3 py-1 rounded-full text-sm font-medium"
+          [ngClass]="{
+            'bg-green-100 text-green-800': recipe.difficulty === 'easy',
+            'bg-yellow-100 text-yellow-800': recipe.difficulty === 'medium',
+            'bg-red-100 text-red-800': recipe.difficulty === 'hard'
+          }"
+        >
+          {{ recipe.difficulty | titlecase }}
+        </span>
+      </div>
+
+      <div class="mb-6">
         <h2 class="text-xl font-semibold mb-2">Ingredients</h2>
         <ul class="list-disc pl-5 space-y-1">
           <li

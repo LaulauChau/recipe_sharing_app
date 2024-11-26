@@ -19,6 +19,20 @@
         />
       </div>
 
+      <div>
+        <label class="block text-sm font-medium text-gray-700"
+          >Difficulty</label
+        >
+        <select
+          formControlName="difficulty"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+        >
+          <option *ngFor="let diff of difficulties" [value]="diff">
+            {{ diff | titlecase }}
+          </option>
+        </select>
+      </div>
+
       <div formArrayName="ingredients">
         <label class="block text-sm font-medium text-gray-700"
           >Ingredients</label
