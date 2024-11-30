@@ -9,6 +9,7 @@
     "preinstall": "npx only-allow pnpm",
     "start": "ng serve",
     "typecheck": "tsc --noEmit",
+    "vercel-build": "node generate-vercel-env.js && pnpm run build",
     "watch": "ng build --watch --configuration development"
   },
   "dependencies": {
