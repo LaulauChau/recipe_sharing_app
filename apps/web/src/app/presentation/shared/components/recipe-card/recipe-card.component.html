@@ -1,0 +1,29 @@
+<div
+  class="bg-white border-2 border-black p-6 transform transition-transform hover:rotate-[0.5deg] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[8px] hover:translate-y-[8px] relative"
+>
+  <h3 class="text-xl font-bold text-black mb-4">{{ recipe.name }}</h3>
+  <div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <span
+        class="px-3 py-1 font-bold text-sm border-2"
+        [ngClass]="{
+          'bg-green-300 border-black': recipe.difficulty === 'easy',
+          'bg-yellow-300 border-black': recipe.difficulty === 'medium',
+          'bg-red-300 border-black': recipe.difficulty === 'hard',
+        }"
+      >
+        {{ recipe.difficulty | titlecase }}
+      </span>
+      <span class="font-bold"
+        >{{ recipe.time.preparation + recipe.time.cooking }} min</span
+      >
+    </div>
+    <p class="font-medium">By {{ recipe.author.name }}</p>
+  </div>
+  <a
+    [routerLink]="['/recipe', recipe.id]"
+    class="mt-6 inline-block font-bold text-black underline decoration-2 underline-offset-4 hover:no-underline"
+  >
+    View details →
+  </a>
+</div>

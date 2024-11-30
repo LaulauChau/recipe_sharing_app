@@ -1,5 +1,5 @@
 <app-auth-layout title="Create your account">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-8">
     <ng-container *ngFor="let field of registerFields">
       <app-form-input
         [config]="field"
@@ -17,12 +17,8 @@
     </app-form-button>
   </form>
 
-  <p class="mt-10 text-center text-sm/6 text-gray-500">
+  <p class="mt-10 text-center font-bold">
     Already have an account?
-    <a
-      routerLink="/auth/login"
-      class="font-semibold text-indigo-600 hover:text-indigo-500"
-      >Sign in</a
-    >
+    <a routerLink="/auth/login" class="text-black">Sign in</a>
   </p>
 </app-auth-layout>
