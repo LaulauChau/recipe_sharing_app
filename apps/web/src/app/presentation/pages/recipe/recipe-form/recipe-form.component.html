@@ -1,0 +1,147 @@
+<div class="min-h-screen bg-yellow-50 px-4 py-8">
+  <div class="container max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-12">
+      <h1 class="text-4xl font-bold text-black transform -rotate-1">
+        {{ isEdit ? "Edit Recipe" : "Create Recipe" }}
+      </h1>
+      <button
+        (click)="goBack()"
+        class="bg-red-500 text-white font-bold px-6 py-3 transform transition-transform border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none"
+      >
+        Cancel
+      </button>
+    </div>
+
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="space-y-8">
+      <!-- Name Input -->
+      <div class="transform rotate-[0.5deg]">
+        <label class="block text-xl font-bold text-black mb-2">Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="block w-full border-2 border-black bg-white px-4 py-3 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:outline-none focus:ring-0 focus:border-black focus:shadow-none focus:translate-x-[4px] focus:translate-y-[4px] transition-all"
+        />
+      </div>
+
+      <!-- Difficulty Select -->
+      <div class="transform -rotate-[0.5deg]">
+        <label class="block text-xl font-bold text-black mb-2"
+          >Difficulty</label
+        >
+        <select
+          formControlName="difficulty"
+          class="block w-full border-2 border-black bg-white px-4 py-3 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:outline-none focus:ring-0 focus:border-black"
+        >
+          <option *ngFor="let diff of difficulties" [value]="diff">
+            {{ diff | titlecase }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Ingredients -->
+      <div formArrayName="ingredients" class="transform rotate-[0.5deg]">
+        <label class="block text-xl font-bold text-black mb-2"
+          >Ingredients</label
+        >
+        <div class="space-y-3">
+          <div
+            *ngFor="let ingredient of ingredients.controls; let i = index"
+            class="flex gap-3"
+          >
+            <input
+              [formControlName]="i"
+              class="flex-1 border-2 border-black bg-white px-4 py-3 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:outline-none focus:ring-0 focus:border-black"
+            />
+            <button
+              type="button"
+              (click)="removeIngredient(i)"
+              class="bg-red-500 text-white font-bold px-4 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-transform"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+        <button
+          type="button"
+          (click)="addIngredient()"
+          class="mt-4 bg-black text-white font-bold px-4 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-transform"
+        >
+          + Add Ingredient
+        </button>
+      </div>
+
+      <!-- Steps -->
+      <div formArrayName="steps" class="transform -rotate-[0.5deg]">
+        <label class="block text-xl font-bold text-black mb-2">Steps</label>
+        <div class="space-y-3">
+          <div
+            *ngFor="let step of steps.controls; let i = index"
+            class="flex gap-3"
+          >
+            <textarea
+              [formControlName]="i"
+              rows="2"
+              class="flex-1 border-2 border-black bg-white px-4 py-3 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:outline-none focus:ring-0 focus:border-black"
+            ></textarea>
+            <button
+              type="button"
+              (click)="removeStep(i)"
+              class="bg-red-500 text-white font-bold px-4 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-transform"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+        <button
+          type="button"
+          (click)="addStep()"
+          class="mt-4 bg-black text-white font-bold px-4 py-2 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-transform"
+        >
+          + Add Step
+        </button>
+      </div>
+
+      <!-- Time -->
+      <div formGroupName="time" class="transform rotate-[0.5deg]">
+        <label class="block text-xl font-bold text-black mb-2"
+          >Time (minutes)</label
+        >
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <input
+              type="number"
+              formControlName="preparation"
+              placeholder="Preparation"
+              class="w-full border-2 border-black bg-white px-4 py-3 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:outline-none focus:ring-0 focus:border-black"
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              formControlName="cooking"
+              placeholder="Cooking"
+              class="w-full border-2 border-black bg-white px-4 py-3 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:outline-none focus:ring-0 focus:border-black"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="error"
+        class="bg-red-100 border-2 border-red-500 p-4 font-bold text-red-500 transform rotate-1"
+      >
+        {{ error }}
+      </div>
+
+      <div class="flex justify-end mt-12">
+        <button
+          type="submit"
+          [disabled]="recipeForm.invalid || loading"
+          class="bg-black text-white font-bold px-8 py-4 transform transition-transform border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {{ isEdit ? "Update Recipe" : "Create Recipe" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
