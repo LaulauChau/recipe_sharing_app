@@ -2,6 +2,12 @@
 
 A web application that enables users to create, share, and manage cooking recipes. Users can browse recipes shared by the community, create their own recipes, and manage their culinary collection.
 
+## Team
+
+- [Laurent, Minh-Phuoc CHAU](minh-phuoc.chau@efrei.net)
+- [Benjamin KAYGISIZ](benjamin.kaygisiz@efrei.net)
+- [Paul SENECAL](paul.senecal@efrei.net)
+
 ## Requirements
 
 - [Firebase](https://firebase.google.com/) project with **Firestore** and **Authentication** (email/password) enabled
